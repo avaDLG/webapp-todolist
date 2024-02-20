@@ -1,7 +1,9 @@
+# views.py is what the user sees
+
 from django.shortcuts import render
 from django.http import HttpResponse
 
 # render simple view to test
 def taskList(request):
-    #return HttpResponse("hello world!")
-    return HttpResponse("To-Do List")
+    return HttpResponse("hello world!")
+    #return HttpResponse("To-Do List")
