@@ -30,6 +30,14 @@ class TaskList(LoginRequiredMixin, ListView): # to see all items
     # more apt name for objects within class
     context_object_name = 'tasks'
 
+    # so user can only access their data
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user) # see their items
+        context['count'] = context['tasks'].filter(complete=False).count() # see count of incomplete items
+
+        return context 
+
 class TaskDetail(LoginRequiredMixin, DetailView): # returning information about specific task
     model = Task
     context_object_name = 'task'
@@ -37,12 +45,17 @@ class TaskDetail(LoginRequiredMixin, DetailView): # returning information about 
 
 class TaskCreate(LoginRequiredMixin, CreateView): # to create task
     model = Task
-    fields = '__all__' # want all fields
+    fields = ['title', 'description', 'complete'] 
     success_url = reverse_lazy('tasks') # redirect user to tasks after creating item
+
+    # can only create tasks for their user
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
 
 class TaskUpdate(LoginRequiredMixin, UpdateView): # update item properties
     model = Task
-    fields = '__all__' # want all fields
+    fields = ['title', 'description', 'complete'] 
     success_url = reverse_lazy('tasks') # redirect user to tasks after updating item
 
 class TaskDelete(LoginRequiredMixin, DeleteView): # to delete item
