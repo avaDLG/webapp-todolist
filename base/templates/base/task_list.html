@@ -1,5 +1,18 @@
 <!-- template to connect with TaskList class-->
+
+<!-- user sign in -->
+{% if request.user.is_authenticated %}
+    <p>{{request.user}}</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+<hr>
 <h1>My To-Do List!</h1>
+
 
 <!-- to create new item -->
 <a href="{% url 'task-create' %}">Add Task</a>
@@ -14,6 +27,7 @@
     {% for task in tasks %}
     <tr>
         <td> {{task.title}} </td>
+        <!-- see / edit / delete task routing -->
         <td><a href="{% url 'task' task.id%}">View</a></td>
         <td><a href="{% url 'task-update' task.id%}">Edit</a></td>
         <td><a href="{% url 'task-delete' task.id%}">Delete</a></td>
