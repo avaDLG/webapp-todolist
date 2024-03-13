@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from .models import Task
 
 # render simple view to test
-class taskList(ListView):
+# inherit ListView
+class TaskList(ListView):
     model = Task 
 
