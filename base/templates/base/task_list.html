@@ -1,2 +1,18 @@
 <!-- template to connect with TaskList class-->
-<h1>My To-Do List</h1>
+<h1>My To-Do List!</h1>
+
+<!-- table for all to-do list item -->
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td> {{task.title}} </td>
+        <td><a href="{% url 'task' task.id%}">View</a></td>
+    </tr>
+    {% empty%}
+    <h3>No items in list...</h3>
+    {% endfor %}
+</table>
