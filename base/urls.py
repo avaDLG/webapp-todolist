@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import taskList
 
 urlpatterns = [
-    path('', views.taskList, name='tasks'),
+    # needd .as_view urls cannot use class inside it but can use a function
+    path('', taskList.as_view().taskList, name='tasks'),
 ]
 
