@@ -11,3 +11,7 @@ admin.site.register(Task)
 # user tester
     #brian
     #testuser
+
+# user tester 2
+    # angelina
+    # testuser2
