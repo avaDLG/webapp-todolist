@@ -1,14 +1,18 @@
 <!-- template to connect with TaskList class-->
 
 <!-- user sign in -->
+
 {% if request.user.is_authenticated %}
     <p>{{request.user}}</p>
-    <form action="{% url 'logout' %}" method="post">
+    <form action="{% url 'logout'%}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>
+    </form>
 {% else %}
-    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'login'%}">Login</a>
 {% endif %}
+
+
 
 <hr>
 <h1>My To-Do List!</h1>
@@ -21,8 +25,8 @@
 
 <!-- search for items -->
 <form method="GET">
-    <input type="text", name='search-area'>
-    <input type="submit", value='Search'>
+    <input type="text" name='search-area' value="{{search_input}}">
+    <input type="submit" value='Search'>
 </form>
 
 
@@ -37,7 +41,7 @@
     <tr>
         <td> {{task.title}} </td>
         <!-- see / edit / delete task routing -->
-        <td><a href="{% url 'task' task.id%}">View</a></td>
+        <!--<td><a href="{% url 'task' task.id%}">View</a></td> -->
         <td><a href="{% url 'task-update' task.id%}">Edit</a></td>
         <td><a href="{% url 'task-delete' task.id%}">Delete</a></td>
     </tr>

@@ -67,10 +67,10 @@ class TaskList(LoginRequiredMixin, ListView): # to see all items
         # grab data user is searching for or nothing if empty
         search_input = self.request.GET.get('search-area') or ''
         if search_input: # if there is data to search -> filter
-            context['tasks'] = context['tasks'].filter(title__icontains=search_input)
+            context['tasks'] = context['tasks'].filter(title__startswith=search_input) # or use icontains both work
 
         context['search_input'] = search_input
-        
+
         return context 
 
 class TaskDetail(LoginRequiredMixin, DetailView): # returning information about specific task
